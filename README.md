@@ -12,13 +12,11 @@ The paper is freely available on [arXiv](https://arxiv.org/abs/2304.00752).
 ## Installation
 1. Download and install MATLAB from the [official website](https://www.mathworks.com/products/matlab.html).
 
-2. Install Casadi by following the instructions from the [official Casadi documentation](https://web.casadi.org/get/). 
-
-3. Install the Multi-Parametric Toolbox 3 (MPT3) by following the instructions from the [official MPT3 documentation](https://www.mpt3.org/). In summary, you will need to:
+2. Install Casadi by following the instructions from the [official Casadi documentation](https://web.casadi.org/get/). In summary, you will need to:
     
-4. Clone this repository or download the code as a ZIP archive and extract it to a folder of your choice.
+3. Clone this repository or download the code as a ZIP archive and extract it to a folder of your choice.
 
-5. Add the code folder to your MATLAB path by running the following command in the MATLAB Command Window:
+4. Add the code folder to your MATLAB path by running the following command in the MATLAB Command Window:
     
         addpath('/path/to/your/code/folder');
     
