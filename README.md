@@ -1,4 +1,4 @@
-# Predictive safety filter using system level synthesis
+# Robust optimal control for nonlinear systems with parametric uncertainties via system level synthesis.
 This repository contains the MATLAB code that accompanies the research paper:
 > Leeman AP., Sieber J., Bennani S., Zeilinger MN. “Robust optimal control for nonlinear systems with parametric uncertainties via system level synthesis.” 
 > Accepted CDC2023 (2023)
