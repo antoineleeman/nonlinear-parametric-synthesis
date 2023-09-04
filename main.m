@@ -167,7 +167,12 @@ end
 %%
 figure(1);
 clf
-colormap = plasma(5);
+colormap = [0.0504    0.0298    0.5280
+    0.4934    0.0115    0.6580
+    0.7964    0.2780    0.4713
+    0.9722    0.5817    0.2541
+    0.9400    0.9752    0.1313];
+
 color1 = colormap(1,:);
 color2 = colormap(3,:);
 color3 = colormap(2,:);
@@ -187,14 +192,14 @@ hold on;
 
 upper_y = z_sol(1,:)+tubes_x(1,:);
 lower_y = z_sol(1,:)-tubes_x(1,:);
-plot(0:m.dt:m.T, upper_y,'Color',color1, 'LineWidth', 1, 'MarkerSize', 10);
-plot(0:m.dt:m.T, lower_y, 'Color',color1, 'LineWidth', 1, 'MarkerSize', 10);
+%plot(0:m.dt:m.T, upper_y,'Color',color1, 'LineWidth', 1, 'MarkerSize', 10);
+%plot(0:m.dt:m.T, lower_y, 'Color',color1, 'LineWidth', 1, 'MarkerSize', 10);
 h_rx = fill([0:m.dt:m.T, fliplr(0:m.dt:m.T)], [upper_y, fliplr(lower_y)],[0.8, 0.8, 0.8], 'FaceColor',color1, 'EdgeColor', 'none', 'FaceAlpha', alpha_area);
 
 upper_y = z_sol(2,:)+tubes_x(2,:);
 lower_y = z_sol(2,:)-tubes_x(2,:);
-plot(0:m.dt:m.T, upper_y, 'Color',color2, 'LineWidth', 1, 'MarkerSize', 10);
-plot(0:m.dt:m.T, lower_y,  'Color',color2, 'LineWidth', 1, 'MarkerSize', 10);
+%plot(0:m.dt:m.T, upper_y, 'Color',color2, 'LineWidth', 1, 'MarkerSize', 10);
+%plot(0:m.dt:m.T, lower_y,  'Color',color2, 'LineWidth', 1, 'MarkerSize', 10);
 h_ry = fill([0:m.dt:m.T, fliplr(0:m.dt:m.T)], [upper_y, fliplr(lower_y)], [0.8, 0.8, 0.8],'FaceColor',color2, 'EdgeColor', 'none', 'FaceAlpha', alpha_area);
 
 plot(0:m.dt:m.T, x_cl(2,:),'k--', 'LineWidth', 1.1, 'MarkerSize', 10);
@@ -223,14 +228,14 @@ hold on;
 
 upper_y = z_sol(3,:)+tubes_x(3,:);
 lower_y = z_sol(3,:)-tubes_x(3,:);
-plot(0:m.dt:m.T, upper_y,'Color',color1, 'LineWidth', 1, 'MarkerSize', 10);
-plot(0:m.dt:m.T, lower_y, 'Color',color1, 'LineWidth', 1, 'MarkerSize', 10);
+%plot(0:m.dt:m.T, upper_y,'Color',color1, 'LineWidth', 1, 'MarkerSize', 10);
+%plot(0:m.dt:m.T, lower_y, 'Color',color1, 'LineWidth', 1, 'MarkerSize', 10);
 rx = fill([0:m.dt:m.T, fliplr(0:m.dt:m.T)], [upper_y, fliplr(lower_y)],[0.8, 0.8, 0.8], 'FaceColor',color1, 'EdgeColor', 'none', 'FaceAlpha', 0.5);
 
 upper_y = z_sol(6,:)+tubes_x(6,:);
 lower_y = z_sol(6,:)-tubes_x(6,:);
-plot(0:m.dt:m.T, upper_y,'Color',color2, 'LineWidth', 1, 'MarkerSize', 10);
-plot(0:m.dt:m.T, lower_y, 'Color',color2, 'LineWidth', 1, 'MarkerSize', 10);
+%plot(0:m.dt:m.T, upper_y,'Color',color2, 'LineWidth', 1, 'MarkerSize', 10);
+%plot(0:m.dt:m.T, lower_y, 'Color',color2, 'LineWidth', 1, 'MarkerSize', 10);
 ry = fill([0:m.dt:m.T, fliplr(0:m.dt:m.T)], [upper_y, fliplr(lower_y)],[0.8, 0.8, 0.8], 'FaceColor',color2, 'EdgeColor', 'none', 'FaceAlpha', 0.5);
 
 
@@ -257,14 +262,14 @@ hold on
 grid on;
 upper_y = z_sol(4,:)+tubes_x(4,:);
 lower_y = z_sol(4,:)-tubes_x(4,:);
-plot(0:m.dt:m.T, upper_y,'Color',color1, 'LineWidth', 1, 'MarkerSize', 10);
-plot(0:m.dt:m.T, lower_y, 'Color',color1, 'LineWidth', 1, 'MarkerSize', 10);
+%plot(0:m.dt:m.T, upper_y,'Color',color1, 'LineWidth', 1, 'MarkerSize', 10);
+%plot(0:m.dt:m.T, lower_y, 'Color',color1, 'LineWidth', 1, 'MarkerSize', 10);
 rx = fill([0:m.dt:m.T, fliplr(0:m.dt:m.T)], [upper_y, fliplr(lower_y)],[0.8, 0.8, 0.8], 'FaceColor',color1, 'EdgeColor', 'none', 'FaceAlpha', 0.5);
 
 upper_y = z_sol(5,:)+tubes_x(5,:);
 lower_y = z_sol(5,:)-tubes_x(5,:);
-plot(0:m.dt:m.T, upper_y,'Color',color2, 'LineWidth', 1, 'MarkerSize', 10);
-plot(0:m.dt:m.T, lower_y, 'Color',color2, 'LineWidth', 1, 'MarkerSize', 10);
+%plot(0:m.dt:m.T, upper_y,'Color',color2, 'LineWidth', 1, 'MarkerSize', 10);
+%plot(0:m.dt:m.T, lower_y, 'Color',color2, 'LineWidth', 1, 'MarkerSize', 10);
 ry = fill([0:m.dt:m.T, fliplr(0:m.dt:m.T)], [upper_y, fliplr(lower_y)],[0.8, 0.8, 0.8], 'FaceColor',color2, 'EdgeColor', 'none', 'FaceAlpha', 0.5);
 
 
@@ -304,13 +309,13 @@ end
 
 upper_y = v_sol(1,:)+tubes_u(1,:);
 lower_y = v_sol(1,:)-tubes_u(1,:);
-stairs(0:m.dt:m.T, [upper_y(1:end-1),upper_y(end-1)],'Color',[color3,alpha_line], 'LineWidth', 1, 'MarkerSize', 10);
-stairs(0:m.dt:m.T, [lower_y(1:end-1),lower_y(end-1)], 'Color',[color3,alpha_line], 'LineWidth', 1, 'MarkerSize', 10);
+%stairs(0:m.dt:m.T, [upper_y(1:end-1),upper_y(end-1)],'Color',[color3,alpha_line], 'LineWidth', 1, 'MarkerSize', 10);
+%stairs(0:m.dt:m.T, [lower_y(1:end-1),lower_y(end-1)], 'Color',[color3,alpha_line], 'LineWidth', 1, 'MarkerSize', 10);
 
 upper_y = v_sol(2,:)+tubes_u(2,:);
 lower_y = v_sol(2,:)-tubes_u(2,:);
-stairs(0:m.dt:m.T, [upper_y(1:end-1),upper_y(end-1)],'Color',[color4,alpha_line], 'LineWidth', 1, 'MarkerSize', 10);
-stairs(0:m.dt:m.T, [lower_y(1:end-1),lower_y(end-1)], 'Color',[color4,alpha_line], 'LineWidth', 1, 'MarkerSize', 10);
+%stairs(0:m.dt:m.T, [upper_y(1:end-1),upper_y(end-1)],'Color',[color4,alpha_line], 'LineWidth', 1, 'MarkerSize', 10);
+%stairs(0:m.dt:m.T, [lower_y(1:end-1),lower_y(end-1)], 'Color',[color4,alpha_line], 'LineWidth', 1, 'MarkerSize', 10);
 
 stairs(0:m.dt:m.T, [u_cl(2,1:end-1), u_cl(2,end-1)],'k--','LineWidth', 1.1, 'MarkerSize', 10);
 stairs(0:m.dt:m.T, [u_cl(1,1:end-1), u_cl(1,end-1)],'k--','LineWidth', 1.1, 'MarkerSize', 10);

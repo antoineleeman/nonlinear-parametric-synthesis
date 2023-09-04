@@ -8,8 +8,8 @@ classdef Capture_Stabilization
         
         x0;
         xf;
-        C;
-        c;
+%         C;
+%         c;
         E;
         
         T_max;
@@ -65,7 +65,7 @@ classdef Capture_Stabilization
             E = zeros(obj.nw,obj.nx);
             E(1,5)= 0.001;E(2,4)= 0.001;E(3,6)=0.001;
 
-            obj.E = E'+ 0.*diag(ones(6,1));
+            obj.E = E';
             obj.dt = obj.T/obj.N;
                         
             obj.mu = obj.dt*[1.3720    1.3559         0    3.9704    3.9066         0];
@@ -74,7 +74,7 @@ classdef Capture_Stabilization
           
         function x_p = ddyn(obj,x,u,integrator) %discretization of the dynamical system
             if nargin < 5
-                integrator = 'multi';
+                integrator = 'rk4';
             end
             h = obj.dt;
             switch integrator
@@ -145,13 +145,12 @@ classdef Capture_Stabilization
             T = u;           
             dt = [zeros(5,1);
                 T(1);
-                %0;
                 ]; 
         end
         
         function x_p = ddyn_theta(obj,x,u,integrator) %merge both functions ...
             if nargin < 5
-                integrator = 'multi';
+                integrator = 'rk4';
             end
             h = obj.dt;
             switch integrator
@@ -203,7 +202,7 @@ classdef Capture_Stabilization
             tic
             M = [ones(1,6), ones(1,2)*obj.T_max];
             max_mu = zeros(1,obj.nx);
-            parfor i = 1:n_points %assume symmetrical constraints
+            parfor i = 1:n_points % assume symmetrical constraints
                 eval = M.*(2*rand(1,obj.nx+obj.nu)-1);
                 %eval(1:4) = eval(1:4)/norm(eval(1:4)); % (!) non-uniform sampling
                 max_mu = max(max_mu,obj.eval_mu(eval));

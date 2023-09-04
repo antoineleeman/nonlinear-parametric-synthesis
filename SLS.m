@@ -44,6 +44,26 @@ classdef SLS
             end
         end
         
+        function R = v3_to_Sigma(obj,v3_Sigma,d)
+            R = [];
+            n=1;
+            nx = obj.nx;
+            for k = 1:obj.N
+                R_= [];
+                for j=1:k-1
+                    R_ = [R_, v3_Sigma{n}]; %%change here
+                    n = n+1;
+                end
+                d_k = d((k-1)*nx+1:k*nx);
+                R_ = [R_, diag(d_k)];
+                for j=k+1:obj.N
+                    R_ = [R_, sparse(nx,nx)];
+                end
+                R = [R;R_];
+            end
+            
+        end
+        
         
         function L = Phi_line_k(obj, k, v3_Phi)
             %k is the number of the line, starting from 1
@@ -363,6 +383,7 @@ classdef SLS
            nu = m.nu;
            N = obj.N;
            nx = m.nx;
+           k=1;
            d = y(k : k+nx*N-1);
            Sigma = cellmat(1,N*(N-1)/2,nx,nx);
        end
