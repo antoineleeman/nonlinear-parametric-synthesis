@@ -373,7 +373,7 @@ set(gcf, 'Position', [0 0 width_cm height_cm]);
 
 filename = 'fig1.pdf';
 exportgraphics(gcf, filename, 'ContentType', 'vector', 'Resolution', 1200);
-
+saveas(gcf, 'fig1.png');
 %%
 figure(2);
 

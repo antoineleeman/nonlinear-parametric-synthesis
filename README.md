@@ -3,6 +3,8 @@ This repository contains the MATLAB code that accompanies the research paper:
 > Leeman AP., Sieber J., Bennani S., Zeilinger MN. “Robust optimal control for nonlinear systems with parametric uncertainties via system level synthesis.” 
 > Accepted CDC2023 (2023)
 
+![Project Image](fig1.png)
+
 The paper is freely available on [arXiv](https://arxiv.org/abs/2304.00752).
 
 ## Prerequisites
