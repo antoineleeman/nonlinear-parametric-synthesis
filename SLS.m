@@ -1,3 +1,14 @@
+% -----------------------------------------------------------------------------
+% File: SLS.m
+% Author: Antoine Leeman (aleeman@ethz.ch)
+% Date: 09th September 2023
+% License: MIT
+% Reference:
+% Leeman AP., Sieber J., Bennani S., Zeilinger MN. “Robust optimal control 
+% for nonlinear systems with parametric uncertainties via system level synthesis.” 
+% Link: https://arxiv.org/abs/2304.00752
+% -----------------------------------------------------------------------------
+
 classdef SLS
     properties
         N;
