@@ -41,6 +41,7 @@ If you use this code in your research, please cite our paper:
   note = {forthcoming},
   archivePrefix = {arXiv},
   eprint = {2304.00752},
+  doi = {10.3929/ethz-b-000631300},
   year={2023}
   }
   ```
