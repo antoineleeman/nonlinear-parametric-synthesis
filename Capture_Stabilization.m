@@ -19,8 +19,6 @@ classdef Capture_Stabilization
         
         x0;
         xf;
-%         C;
-%         c;
         E;
         
         T_max;
@@ -38,8 +36,7 @@ classdef Capture_Stabilization
         Q_cost;
         R_cost;
         
-        theta_v = [-0.01, 0.01];
-        
+        theta_v = [-0.01, 0.01];        
         mu;
         I = 1;
         m=1;
