@@ -4,8 +4,16 @@
 % Date: 09th September 2023
 % License: MIT
 % Reference:
-% Leeman AP., Sieber J., Bennani S., Zeilinger MN. “Robust optimal control 
-% for nonlinear systems with parametric uncertainties via system level synthesis.” 
+%{
+@inproceedings{leeman2023_CDC,
+title={Robust Optimal Control for Nonlinear Systems with Parametric Uncertainties via System Level Synthesis},
+author={Leeman, Antoine P. and Sieber, Jerome and Bennani, Samir and Zeilinger, Melanie N.},
+booktitle = {Proceedings of the 62nd IEEE Conf. on Decision and Control (CDC)},
+archivePrefix = {arXiv},
+eprint = {2304.00752},
+doi = {10.3929/ethz-b-000631300},
+year={2023}}
+%}
 % Link: https://arxiv.org/abs/2304.00752
 % -----------------------------------------------------------------------------
 
