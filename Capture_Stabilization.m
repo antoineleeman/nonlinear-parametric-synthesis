@@ -39,7 +39,7 @@ classdef Capture_Stabilization
         theta_v = [-0.01, 0.01];        
         mu;
         I = 1;
-        m=1;
+        m = 1;
     end
     
     methods
@@ -56,7 +56,7 @@ classdef Capture_Stabilization
             obj.w_max = w_max;
             
             F_u = [eye(2); -eye(2)];
-             b_u = T_max*[ones(4,1)];
+            b_u = T_max*[ones(4,1)];
             F_x = [eye(obj.nx);
                 -eye(obj.nx)];
             b_x = ones(2*obj.nx,1);
@@ -76,13 +76,15 @@ classdef Capture_Stabilization
             obj.E = E';
             obj.dt = obj.T/obj.N;
                         
-            obj.mu = obj.dt*[1.3720    1.3559         0    3.9704    3.9066         0];
+            obj.mu = obj.dt*[1.3720 1.3559 0 3.9704 3.9066 0]; %todo: call compute_mu here
+            % note: using m.compute_mu(10000), we need 69.6 seconds to obtain a tighter value
+            % obj.mu = [0.2845 0.2821 0 1.4272 1.4246 0];
             
         end
           
-        function x_p = ddyn(obj,x,u,integrator) %discretization of the dynamical system
-            if nargin < 5
-                integrator = 'rk4';
+        function x_p = ddyn(obj,x,u,integrator) % discretization of the dynamical system
+            if nargin < 4
+                integrator = 'multi';
             end
             h = obj.dt;
             switch integrator
@@ -158,7 +160,7 @@ classdef Capture_Stabilization
         
         function x_p = ddyn_theta(obj,x,u,integrator) %merge both functions ...
             if nargin < 5
-                integrator = 'rk4';
+                integrator = 'multi';
             end
             h = obj.dt;
             switch integrator
@@ -202,7 +204,6 @@ classdef Capture_Stabilization
             B_fun = casadi.Function('B_fun',{var_fun},{B});
             B = B_fun([x;u]);
         end
-        
          
         function [max_mu] = compute_mu(obj,n_points)
             % estimation of the value of mu, via sampling
@@ -211,6 +212,7 @@ classdef Capture_Stabilization
             M = [ones(1,6), ones(1,2)*obj.T_max];
             max_mu = zeros(1,obj.nx);
             parfor i = 1:n_points % assume symmetrical constraints
+            %for i = 1:n_points % slower alternative if the parfor is not available
                 eval = M.*(2*rand(1,obj.nx+obj.nu)-1);
                 %eval(1:4) = eval(1:4)/norm(eval(1:4)); % (!) non-uniform sampling
                 max_mu = max(max_mu,obj.eval_mu(eval));
@@ -224,9 +226,10 @@ classdef Capture_Stabilization
             x_fun = SX.sym('x',obj.nx);
             u_fun = SX.sym('u',obj.nu);
             var_fun = [x_fun;u_fun];
-            H = jacobian(jacobian(obj.ddyn(x_fun,u_fun,'multi'), var_fun), var_fun); %compute hessian directly!
+            % ! Assume Hessian of f_theta is linear ! todo: add hessian of
+            % f_theta
+            H = jacobian(jacobian(obj.ddyn(x_fun,u_fun,'multi'), var_fun), var_fun); 
             H_fun = casadi.Function('H_fun',{var_fun},{H});
-            
             H = permute(reshape(full(H_fun(xu)),[obj.nx,obj.nx+obj.nu,obj.nx+obj.nu]),[3,2,1]);
             d = size(H);
             for i = 1:d(3)
