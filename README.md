@@ -37,11 +37,9 @@ If you use this code in your research, please cite our paper:
   @inproceedings{leeman2023_CDC,
   title={Robust Optimal Control for Nonlinear Systems with Parametric Uncertainties via System Level Synthesis},
   author={Leeman, Antoine P. and Sieber, Jerome and Bennani, Samir and Zeilinger, Melanie N.},
-  booktitle = {Proceedings of the 62nd IEEE Conf. on Decision and Control (CDC)},
-  note = {forthcoming},
-  archivePrefix = {arXiv},
-  eprint = {2304.00752},
-  doi = {10.3929/ethz-b-000631300},
+  booktitle = {Proc. of the 62nd IEEE Conf. on Decision and Control (CDC)},
+  doi={10.1109/CDC49753.2023.10383271},
+  pages={4784-4791},
   year={2023}
   }
   ```
