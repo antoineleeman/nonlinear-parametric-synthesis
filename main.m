@@ -8,14 +8,14 @@
 @inproceedings{leeman2023_CDC,
 title={Robust Optimal Control for Nonlinear Systems with Parametric Uncertainties via System Level Synthesis},
 author={Leeman, Antoine P. and Sieber, Jerome and Bennani, Samir and Zeilinger, Melanie N.},
-booktitle = {Proceedings of the 62nd IEEE Conf. on Decision and Control (CDC)},
-archivePrefix = {arXiv},
-eprint = {2304.00752},
-doi = {10.3929/ethz-b-000631300},
+booktitle = {Proc. of the 62nd IEEE Conf. on Decision and Control (CDC)},
+doi={10.1109/CDC49753.2023.10383271},
+pages={4784-4791},
 year={2023}}
 %}
 % Link: https://arxiv.org/abs/2304.00752
 % -----------------------------------------------------------------------------
+
 %%
 clear all;
 close all;
