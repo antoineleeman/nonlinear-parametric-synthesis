@@ -1,7 +1,7 @@
 # Robust optimal control for nonlinear systems with parametric uncertainties via system level synthesis.
 This repository contains the MATLAB code that accompanies the research paper:
 > Leeman AP., Sieber J., Bennani S., Zeilinger MN. “Robust optimal control for nonlinear systems with parametric uncertainties via system level synthesis” 
-> In Proc. 59th IEEE Conference on Decision and Control (CDC), pp. 4784-4791, 2023.
+> In Proc. 62th IEEE Conference on Decision and Control (CDC), pp. 4784-4791, 2023.
 
 ![Project Image](fig1.png)
 
