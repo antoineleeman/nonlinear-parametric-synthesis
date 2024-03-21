@@ -118,6 +118,7 @@ var_slack = [var_slack;slack_tube];
 [y_tube, n_y_tube] = sls.getVariablesTube(tau);
 [y_filter, n_y_filter] = sls.getVariablesFilter_onlydiag(m, d);
 
+% robust performance performance guarantees Eq.(42)
 [ inf_norm, n_ineq_inf,g_ineq_inf, var_slack_inf,n_var_slack_inf ] = sls.mat_inf_norm([C * sls.v3_to_R(Phi_x);D*sls.v3_to_M(Phi_u)]);
 n_ineq = n_ineq + n_ineq_inf +1;
 g_ineq = [g_ineq ; g_ineq_inf;[inf_norm-gamma_max]; ];
