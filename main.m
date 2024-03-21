@@ -53,12 +53,15 @@ g_ineq = [];
 
 var_slack = [];
 
+% nominal objective
 f = sls.getObjectiveNominal(m,Z,V);
 
+% constraint the nominal dynamics
 [n_dyn,g_dyn] = sls.getConstraintsDynamic(m,Z,V);
 n_eq = n_eq + n_dyn;
 g_eq = [g_eq ; g_dyn];
 
+%nominal constraints (without robustness)
 [n_cons,g_cons, slack_cons, ~] = sls.getLinearConstraints(m,Z,V, cellmat(N*(N+1)/2,nx,nx),cellmat(N*(N+1)/2,nx,nu));
 n_ineq = n_ineq + n_cons;
 g_ineq = [g_ineq ; g_cons];
@@ -72,37 +75,45 @@ solver = nlpsol('solver', 'ipopt', nlp);
 lbg = [zeros(n_eq,1);-inf(n_ineq,1)];
 ubg = zeros(n_eq +n_ineq,1 );
 
+% nominal trajectory optimization: (used for comparison)
 res = solver('lbg',lbg,'ubg',ubg);
 x0_nom = full(res.x);
 v_sol_init = full(res.x((N+1)*nx+1:n_y_nom));
 v_init = sls.vecToNominalInput(m,v_sol_init);
 
+
+% reset of the constraints
 g_ineq = [];
 n_ineq = 0;
 y = y_nom;
 n=0;
 var_slack = [];
 
+% robust constraints satisfaction Eq. (35e)
 [n_cons,g_cons, slack_cons, n_slack_cons] = sls.getLinearConstraints(m,Z,V, Phi_x,Phi_u);
 n_ineq = n_ineq + n_cons;
 g_ineq = [g_ineq ; g_cons];
 var_slack = [var_slack;slack_cons];
 
+% filter constraints Eq. (35d)
 [n_filter,g_filter,n_slack_filter, slack_filter] = sls.getConstraintFilter(m,Z,V,Phi_x,Phi_u,d,tau);
 n_ineq = n_ineq + n_filter;
 g_ineq = [g_ineq ; g_filter];
 var_slack = [var_slack;slack_filter];
 
-
+% system level parametrization of the controller Eq. (35b)
 [n_map, g_map] = sls.getNonlinearMapConstraints(m, Z,V, Phi_x,Phi_u, Sigma, d);
 n_eq = n_eq + n_map;
 g_eq = [g_eq ; g_map];
 
+% constraint on the tube size used for the linearization error overbound
+% Eq. (35f)
 [n_ineq_tube,g_ineq_tube, n_slack_tube, slack_tube] = sls.getConstraintTube(m,tau, Phi_x, Phi_u);
 n_ineq = n_ineq + n_ineq_tube;
 g_ineq = [g_ineq ; g_ineq_tube];
 var_slack = [var_slack;slack_tube];
 
+% extract the variables
 [y_contr,n_y_contr] = sls.getVariablesResponses(m,Phi_x,Phi_u);
 [y_tube, n_y_tube] = sls.getVariablesTube(tau);
 [y_filter, n_y_filter] = sls.getVariablesFilter_onlydiag(m, d);
@@ -112,19 +123,23 @@ n_ineq = n_ineq + n_ineq_inf +1;
 g_ineq = [g_ineq ; g_ineq_inf;[inf_norm-gamma_max]; ];
 var_slack = [var_slack; var_slack_inf;inf_norm];
 
-
+% concatanate all the variables together
 y = [y; y_contr;y_tube;y_filter;var_slack];
-alpha = 1e-6;
 
+% add a small regularization to the cost
+alpha = 1e-6;
 f = f+ alpha*y'*y;
 nlp = struct('x',y, 'f',f, 'g',[g_eq;g_ineq]);
 solver = nlpsol('solver', 'ipopt', nlp);
 lbg = [zeros(n_eq,1);-inf(n_ineq,1)];
 ubg = zeros(n_eq +n_ineq,1 );
 
+% solve the NLP with zeros initial guess
 x0 = zeros(n_slack_cons+n_slack_tube+ n_slack_filter+n_var_slack_inf+n_y_filter+ n_y_tube+n_y_contr + n_y_nom,1);
 res = solver('x0',x0,'lbg',lbg,'ubg',ubg);
 n=0;
+
+%extract the solution
 z_sol_v = full(res.x(n+1:(N+1)*nx));
 v_sol_v = full(res.x((N+1)*nx+1:n_y_nom));
 n = n+n_y_nom;
@@ -163,9 +178,9 @@ tubes_u = [zeros(nu,1), tubes_u];
 K = M_sol*inv(R_sol);
 theta_true = 0.01;
 
+% closed-loop simulation of the nonlinear system
 x_cl = zeros(nx,m.N+1);
 u_cl = zeros(nu,m.N+1);
-
 x_cl(:,1) = m.x0;
 for k = 1 : m.N
     Delta_x = reshape(x_cl(:,2:end) -z_sol(:,2:end), [N*nx,1]);
@@ -176,13 +191,14 @@ end
 x_cl_init = zeros(nx,m.N+1);
 u_cl_init = zeros(nu,m.N+1);
 
+% nominal trajectory optimization used in open-loop
 x_cl_init(:,1) = m.x0;
 for k = 1: m.N
     u_cl_init(:,k) = v_init(:,k);
     x_cl_init(:,k+1)= m.ddyn(x_cl_init(:,k),u_cl_init(:,k)) + m.ddyn_theta(x_cl_init(:,k),u_cl_init(:,k))*theta_true + m.E*(2*(ones(m.nw,1))-1);
 end
 
-%%
+%% PLOTS
 figure(1);
 clf
 colormap = [0.0504    0.0298    0.5280
